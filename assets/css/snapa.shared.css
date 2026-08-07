@@ -2243,9 +2243,6 @@ figcaption {
 
 
 
-.fs-styleguide_item.is-stretch {
-  justify-items: stretch;
-}
 
 
 
@@ -2321,9 +2318,8 @@ figcaption {
 
 
 
-.fs-styleguide_label.is-tag {
-  background-color: var(--background-color--background-tertiary\<deleted\|variable-6632d948-2d2d-2556-731d-05a71c92f234\>);
-}
+
+
 
 
 
@@ -2387,11 +2383,7 @@ figcaption {
 
 
 
-.fs-styleguide_section.is-vertical {
-  grid-column-gap: 4rem;
-  grid-row-gap: 4rem;
-  grid-template-columns: 1fr;
-}
+
 
 
 
