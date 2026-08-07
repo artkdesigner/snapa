@@ -5356,6 +5356,34 @@ figcaption {
   .hero_bg {
     background-image: url("../images/6a69d0709e21daca43427697_-T-hero.webp");
   }
+
+  .choose_screen.is-1 {
+    background-image: url("../images/6a70eb0dcb299a5494cf3b4e_choose-01-t.webp");
+  }
+
+  .choose_screen.is-2 {
+    background-image: url("../images/6a70eb0d701b0ed33a41e215_choose-02-t.webp");
+  }
+
+  .choose_screen.is-3 {
+    background-image: url("../images/6a70eb0d3a04a595027e550c_choose-03-t.webp");
+  }
+
+  .choose_screen.is-4 {
+    background-image: url("../images/6a70eb0d510b60efd201813a_choose-04-t.webp");
+  }
+
+  .mask-scroll_screen.is-1 {
+    background-image: url("../images/6a70cfe774d52990f5682487_mask-scroll-1-t.webp");
+  }
+
+  .mask-scroll_screen.is-2 {
+    background-image: url("../images/6a70cfe7fa41638c9fa25f9d_mask-scroll-2-t.webp");
+  }
+
+  .mask-scroll_screen.is-3 {
+    background-image: url("../images/6a70cfe7f2ad69dfe113d22b_mask-scroll-3-t.webp");
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -5563,6 +5591,34 @@ figcaption {
 
   .footer_bg {
     background-image: url("../images/6a733fc89e4abae09bf62c01_-M-Footer.webp");
+  }
+
+  .choose_screen.is-1 {
+    background-image: url("../images/6a70eb0dcb299a5494cf3b4e_choose-01-m.webp");
+  }
+
+  .choose_screen.is-2 {
+    background-image: url("../images/6a70eb0d701b0ed33a41e215_choose-02-m.webp");
+  }
+
+  .choose_screen.is-3 {
+    background-image: url("../images/6a70eb0d3a04a595027e550c_choose-03-m.webp");
+  }
+
+  .choose_screen.is-4 {
+    background-image: url("../images/6a70eb0d510b60efd201813a_choose-04-m.webp");
+  }
+
+  .mask-scroll_screen.is-1 {
+    background-image: url("../images/6a70cfe774d52990f5682487_mask-scroll-1-m.webp");
+  }
+
+  .mask-scroll_screen.is-2 {
+    background-image: url("../images/6a70cfe7fa41638c9fa25f9d_mask-scroll-2-m.webp");
+  }
+
+  .mask-scroll_screen.is-3 {
+    background-image: url("../images/6a70cfe7f2ad69dfe113d22b_mask-scroll-3-m.webp");
   }
 }
 
