@@ -2050,7 +2050,7 @@ textarea.w-input, textarea.w-select {
 
 @font-face {
   font-family: General Sans;
-  src: url("../fonts/6a69b0d9af469793ef48cce9_GeneralSans-Medium.woff") format("woff");
+  src: url("../fonts/6a69b0d9af469793ef48cce9_GeneralSans-Medium.woff2") format("woff2"), url("../fonts/6a69b0d9af469793ef48cce9_GeneralSans-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -2058,7 +2058,7 @@ textarea.w-input, textarea.w-select {
 
 @font-face {
   font-family: Kobzarks;
-  src: url("../fonts/6a71bfaff82ac928126507d7_kobzarks.woff") format("woff");
+  src: url("../fonts/6a71bfaff82ac928126507d7_kobzarks.woff2") format("woff2"), url("../fonts/6a71bfaff82ac928126507d7_kobzarks.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
