@@ -4225,6 +4225,8 @@ figcaption {
   display: flex;
   position: fixed;
   top: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .order_header {
