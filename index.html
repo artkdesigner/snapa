@@ -575,11 +575,15 @@
 
   markers.forEach((m) => observer.observe(m));
 
-  // Клик по пункту списка — скролл к соответствующему слайду
+  // Клик по пункту списка — скролл к соответствующему слайду.
+  // Первый маркер стоит вровень с верхним краем секции — той же точкой,
+  // где ScrollTrigger заголовка триггерит reverse ('top top'). Небольшой
+  // отступ гарантирует, что мы всегда попадаем чуть ниже границы и не
+  // задеваем эту анимацию.
   function goToMarker(marker) {
     if (!marker) return;
     if (window.lenis) {
-      window.lenis.scrollTo(marker.getBoundingClientRect().top + window.scrollY);
+      window.lenis.scrollTo(marker.getBoundingClientRect().top + window.scrollY + 20);
     } else {
       requestAnimationFrame(function () { goToMarker(marker); });
     }

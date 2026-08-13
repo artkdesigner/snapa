@@ -2631,6 +2631,10 @@ figcaption {
   cursor: pointer;
 }
 
+.feature-scroll_list-item:hover {
+  opacity: 1;
+}
+
 .feature-scroll_list-item.list-item-active {
   color: var(--accent);
 }
