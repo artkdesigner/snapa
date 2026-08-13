@@ -2668,7 +2668,7 @@ figcaption {
 }
 
 .feuture-scroll_title {
-  color: var(--accent-40);
+  color: var(--accent);
   letter-spacing: -.04rem;
   font-size: 1rem;
   font-weight: 500;
@@ -3507,6 +3507,25 @@ figcaption {
   top: 11.25rem;
 }
 
+.footer_title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -.1em;
+  width: 0%;
+  height: .125rem;
+  background-color: var(--text-tetriary);
+  transition: width .8s ease, background-color .3s ease;
+}
+
+.footer_title.is-visible::after {
+  width: 100%;
+}
+
+.footer_title:hover::after {
+  background-color: var(--text-secondary);
+}
+
 .footer_content {
   z-index: 2;
   grid-column-gap: 3.25rem;
@@ -3711,7 +3730,7 @@ figcaption {
   letter-spacing: -.0175rem;
   cursor: text;
   background-color: #00000005;
-  border: 0 #000;
+  border: .0625rem solid transparent;
   height: 3.4375rem;
   margin-bottom: 0;
   padding: 1.25rem;
@@ -3727,6 +3746,27 @@ figcaption {
 
 .input::placeholder {
   color: #010d1880;
+}
+
+.form_field {
+  width: 100%;
+}
+
+.form_field-error {
+  color: var(--accent);
+  letter-spacing: -.0175rem;
+  margin-top: .375rem;
+  font-size: .75rem;
+  line-height: 120%;
+  display: none;
+}
+
+.form_field.is-error .input {
+  border-color: var(--accent);
+}
+
+.form_field.is-error .form_field-error {
+  display: block;
 }
 
 .form_inputs-grid {
