@@ -2509,31 +2509,41 @@ figcaption {
 }
 
 .section-feauture-scroll {
-  background-color: var(--bg);
+  background-color: #fbfcfd;
   grid-template-rows: 100vh 100vh 100vh 100vh 100vh;
   grid-template-columns: 1fr;
   grid-auto-rows: 100vh;
   grid-auto-columns: 1fr;
   width: 100%;
   height: 500vh;
+  transition: background-color .6s;
   display: grid;
   position: relative;
+}
+
+.section-feauture-scroll.is-active {
+  background-color: var(--bg);
 }
 
 .feature-scroll_pin {
   z-index: 1;
   grid-column-gap: 1.875rem;
   grid-row-gap: 1.875rem;
-  background-color: var(--bg);
+  background-color: #fbfcfd;
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
   grid-auto-columns: 1fr;
   width: 100%;
   height: 100vh;
   padding: 1.875rem;
+  transition: background-color .6s;
   display: grid;
   position: sticky;
   top: 0;
+}
+
+.section-feauture-scroll.is-active .feature-scroll_pin {
+  background-color: var(--bg);
 }
 
 .feature-scroll_markers {
@@ -3885,6 +3895,15 @@ figcaption {
   display: flex;
   position: sticky;
   top: 0;
+}
+
+.about_dim {
+  z-index: 2;
+  background-color: #000;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
 }
 
 .list-item_num {
