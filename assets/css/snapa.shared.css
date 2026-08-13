@@ -2560,10 +2560,6 @@ figcaption {
   margin-top: -.08em;
 }
 
-.bigPrintSizeNumLine-mask {
-  margin-top: -.28em;
-}
-
 .bigPrintSubLine-mask {
   margin-top: -.18em;
 }
@@ -2572,13 +2568,6 @@ figcaption {
   margin-top: -.28em;
 }
 
-.controlTitleWord-mask {
-  margin-top: -.18em;
-}
-
-.controlSubWord-mask {
-  margin-top: .12em;
-}
 
 .section-feauture-scroll {
   background-color: #fbfcfd;
@@ -2880,12 +2869,12 @@ figcaption {
   z-index: 6;
   grid-column-gap: 16px;
   grid-row-gap: 16px;
-  grid-template-rows: 100vh 100vh 100vh 100vh 100vh 100vh;
+  grid-template-rows: 100vh 100vh 100vh 100vh 100vh;
   grid-template-columns: 1fr;
   grid-auto-rows: 100vh;
   grid-auto-columns: 1fr;
   width: 100%;
-  height: 600vh;
+  height: 500vh;
   display: grid;
   position: relative;
   overflow: clip;
@@ -4412,17 +4401,11 @@ figcaption {
   .bigPrintSizeTextLine-mask {
     margin-top: .12em;
   }
-  .bigPrintSizeNumLine-mask {
-    margin-top: -.18em;
-  }
   .bigPrintSubLine-mask {
     margin-top: .02em;
   }
   .chooseTitleLine-mask {
     margin-top: -.18em;
-  }
-  .controlSubWord-mask {
-    margin-top: -.08em;
   }
 }
 
@@ -4463,13 +4446,7 @@ figcaption {
   .scrollMaskTitleLine-mask {
     margin-top: -.28em;
   }
-  .bigPrintSizeNumLine-mask {
-    margin-top: -.28em;
-  }
   .chooseTitleLine-mask {
-    margin-top: -.28em;
-  }
-  .controlTitleWord-mask {
     margin-top: -.28em;
   }
 }
@@ -4722,7 +4699,7 @@ figcaption {
 }
 
 #w-node-_362e4db6-1f37-cc06-22b8-90f40f5bbbcb-04a25b14 {
-  grid-area: 1 / 1 / 7 / 2;
+  grid-area: 1 / 1 / 6 / 2;
 }
 
 #w-node-_362e4db6-1f37-cc06-22b8-90f40f5bbbdf-04a25b14 {

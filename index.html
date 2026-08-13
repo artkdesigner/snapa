@@ -1221,25 +1221,49 @@
         });
       }
 
+      // mask:'words' wraps each WORD (not line) in its own overflow:clip
+      // box, so a flat CSS margin-top on every word doesn't reliably pull
+      // wrapped rows together the way it does for mask:'lines' (words on
+      // the same row are inline-block, not stacked block boxes). Instead,
+      // measure each word's real position after split and only pull up
+      // the first word of each NEW row — same compensation this project
+      // uses elsewhere for the 118% line-height bump, just row-detected
+      // at runtime instead of guessed via a static class selector.
+      function compressWrappedRows(words, desktopEm, tabletEm, mobileEm) {
+        var mobileNow = window.matchMedia('(max-width: 767px)').matches;
+        var tabletNow = !mobileNow && window.matchMedia('(max-width: 991px)').matches;
+        var marginEm = mobileNow ? mobileEm : (tabletNow ? tabletEm : desktopEm);
+        var lastTop = null;
+        words.forEach(function (word) {
+          var mask = word.parentNode;
+          if (!mask) return;
+          var top = Math.round(mask.getBoundingClientRect().top);
+          if (lastTop !== null && top > lastTop + 2) {
+            mask.style.marginTop = marginEm;
+          }
+          lastTop = top;
+        });
+      }
+
       SplitText.create(titleItem.querySelector('.control_title'), {
         type: 'words',
         mask: 'words',
-        wordsClass: 'controlTitleWord',
         autoSplit: true,
         onSplit: function (self) {
           titleWords = self.words;
           fixDescenderClip(titleWords);
+          compressWrappedRows(titleWords, '-.18em', '-.18em', '-.28em');
         }
       });
 
       SplitText.create(titleItem.querySelector('.control_sub'), {
         type: 'words',
         mask: 'words',
-        wordsClass: 'controlSubWord',
         autoSplit: true,
         onSplit: function (self) {
           subWords = self.words;
           fixDescenderClip(subWords);
+          compressWrappedRows(subWords, '.12em', '-.08em', '-.08em');
         }
       });
 
