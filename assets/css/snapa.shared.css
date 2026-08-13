@@ -2548,9 +2548,9 @@ figcaption {
 
 .feature-scroll_markers {
   pointer-events: none;
-  grid-template-rows: 50vh 50vh 50vh;
+  grid-template-rows: 100vh 100vh 100vh;
   grid-template-columns: 1fr;
-  grid-auto-rows: 50vh;
+  grid-auto-rows: 100vh;
   display: grid;
 }
 
