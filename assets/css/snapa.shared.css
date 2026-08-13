@@ -2629,6 +2629,7 @@ figcaption {
   display: flex;
   position: relative;
   cursor: pointer;
+  opacity: .6;
 }
 
 .feature-scroll_list-item:hover {
@@ -2637,6 +2638,7 @@ figcaption {
 
 .feature-scroll_list-item.list-item-active {
   color: var(--accent);
+  opacity: 1;
 }
 
 .list-item_title {
