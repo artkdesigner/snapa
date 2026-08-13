@@ -1135,13 +1135,18 @@
     }
   
     if (isDesktop) {
-      if (chooseTitleEl) chooseTitleEl.style.transform = `translateX(${-150 * progress}%)`;
-      if (chooseNameWrapEl) chooseNameWrapEl.style.transform = `translateX(${25 * progress}vw)`;
-      if (chooseCirclesWrapEl) chooseCirclesWrapEl.style.transform = `translateX(${25 * progress}vw)`;
+      // Раньше -150%/25vw не хватало, чтобы полностью увести элементы за
+      // пределы экрана к progress=1 — обрезки title/circles-wrap оставались
+      // видны поверх открытки и выглядели как мигание. Сдвиг в vw от
+      // ширины вьюпорта (а не от собственной ширины элемента) гарантирует
+      // полный уход за край независимо от содержимого.
+      if (chooseTitleEl) chooseTitleEl.style.transform = `translateX(${-120 * progress}vw)`;
+      if (chooseNameWrapEl) chooseNameWrapEl.style.transform = `translateX(${120 * progress}vw)`;
+      if (chooseCirclesWrapEl) chooseCirclesWrapEl.style.transform = `translateX(${120 * progress}vw)`;
     } else {
-      if (chooseTitleEl) chooseTitleEl.style.transform = `translateY(${70 * progress}vh)`;
-      if (chooseNameWrapEl) chooseNameWrapEl.style.transform = `translateY(${70 * progress}vh)`;
-      if (chooseCirclesWrapEl) chooseCirclesWrapEl.style.transform = `translateY(${70 * progress}vh)`;
+      if (chooseTitleEl) chooseTitleEl.style.transform = `translateY(${100 * progress}vh)`;
+      if (chooseNameWrapEl) chooseNameWrapEl.style.transform = `translateY(${100 * progress}vh)`;
+      if (chooseCirclesWrapEl) chooseCirclesWrapEl.style.transform = `translateY(${100 * progress}vh)`;
     }
   }
   
