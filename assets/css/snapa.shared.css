@@ -3897,15 +3897,6 @@ figcaption {
   top: 0;
 }
 
-.about_dim {
-  z-index: 2;
-  background-color: #000;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-}
-
 .list-item_num {
   line-height: 120%;
 }
