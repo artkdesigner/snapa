@@ -430,6 +430,7 @@
         SplitText.create(title, {
           type: 'lines',
           mask: 'lines',
+          linesClass: 'heroTitleLine',
           autoSplit: true,
           onSplit: function (self) {
             titleLines = self.lines;
@@ -437,13 +438,14 @@
           }
         });
       }
-  
+
       subWraps.forEach(function (wrap) {
         var sub = wrap.querySelector('.hero_sub');
         if (!sub) return;
         SplitText.create(sub, {
           type: 'lines',
           mask: 'lines',
+          linesClass: 'heroSubLine',
           autoSplit: true,
           onSplit: function (self) {
             subLines = subLines.concat(self.lines);
@@ -508,16 +510,18 @@
       SplitText.create(title, {
         type: 'lines',
         mask: 'lines',
+        linesClass: 'aboutTitleLine',
         autoSplit: true,
         onSplit: function (self) {
           titleLines = self.lines;
           gsap.set(titleLines, { yPercent: 100 });
         }
       });
-  
+
       SplitText.create(sub, {
         type: 'lines',
         mask: 'lines',
+        linesClass: 'aboutSubLine',
         autoSplit: true,
         onSplit: function (self) {
           subLines = self.lines;
@@ -737,24 +741,26 @@
       SplitText.create(title, {
         type: 'lines',
         mask: 'lines',
+        linesClass: 'featureScrollTitleLine',
         autoSplit: true,
         onSplit: function (self) {
           titleLines = self.lines;
           gsap.set(titleLines, { yPercent: 100 });
         }
       });
-  
+
       listItems.forEach(function (item) {
         var num = item.querySelector('.list-item_num');
         var itemTitle = item.querySelector('.list-item_title');
         var line = item.querySelector('.list-item_line');
         var entry = { numLines: [], titleLines: [], line: line };
         items.push(entry);
-  
+
         if (num) {
           SplitText.create(num, {
             type: 'lines',
             mask: 'lines',
+            linesClass: 'listItemNumLine',
             autoSplit: true,
             onSplit: function (self) {
               entry.numLines = self.lines;
@@ -762,11 +768,12 @@
             }
           });
         }
-  
+
         if (itemTitle) {
           SplitText.create(itemTitle, {
             type: 'lines',
             mask: 'lines',
+            linesClass: 'listItemTitleLine',
             autoSplit: true,
             onSplit: function (self) {
               entry.titleLines = self.lines;
@@ -853,6 +860,7 @@
           SplitText.create(title, {
             type: 'lines',
             mask: 'lines',
+            linesClass: 'scrollMaskTitleLine',
             autoSplit: true,
             onSplit: function (self) {
               entry.titleLines = self.lines;
@@ -860,11 +868,12 @@
             }
           });
         }
-  
+
         if (sub) {
           SplitText.create(sub, {
             type: 'lines',
             mask: 'lines',
+            linesClass: 'scrollMaskSubLine',
             autoSplit: true,
             onSplit: function (self) {
               entry.subLines = self.lines;
@@ -949,6 +958,13 @@
     );
   }
 
+  var BIG_PRINT_LINES_CLASS = {
+    'big-print_title': 'bigPrintTitleLine',
+    'big-print_size-text': 'bigPrintSizeTextLine',
+    'big-print_size-num': 'bigPrintSizeNumLine',
+    'big-print_sub': 'bigPrintSubLine'
+  };
+
   function begin() {
     var entries = [];
 
@@ -956,9 +972,14 @@
       var entry = { lines: [] };
       entries.push(entry);
 
+      var linesClass = Object.keys(BIG_PRINT_LINES_CLASS).reduce(function (found, cls) {
+        return found || (el.classList.contains(cls) ? BIG_PRINT_LINES_CLASS[cls] : null);
+      }, null);
+
       SplitText.create(el, {
         type: 'lines',
         mask: 'lines',
+        linesClass: linesClass,
         autoSplit: true,
         onSplit: function (self) {
           entry.lines = self.lines;
@@ -1057,13 +1078,15 @@
       SplitText.create(title, {
         type: 'lines',
         mask: 'lines',
+        linesClass: 'chooseTitleLine',
         autoSplit: true,
         onSplit: function (self) {
           titleLines = self.lines;
           gsap.set(titleLines, { yPercent: 100 });
         }
       });
-  
+
+
       gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -1201,6 +1224,7 @@
       SplitText.create(titleItem.querySelector('.control_title'), {
         type: 'words',
         mask: 'words',
+        wordsClass: 'controlTitleWord',
         autoSplit: true,
         onSplit: function (self) {
           titleWords = self.words;
@@ -1211,6 +1235,7 @@
       SplitText.create(titleItem.querySelector('.control_sub'), {
         type: 'words',
         mask: 'words',
+        wordsClass: 'controlSubWord',
         autoSplit: true,
         onSplit: function (self) {
           subWords = self.words;
@@ -1437,7 +1462,7 @@
     var popup = document.querySelector('.popup-order');
     if (!popup || typeof gsap === 'undefined') return;
   
-    var openBtns = document.querySelectorAll('.button, #order');
+    var openBtns = document.querySelectorAll('.button, #order, .footer_title');
     var closeBtn = popup.querySelector('.order_close-btn');
     var successBtn = popup.querySelector('.form_success .form_button');
     var orderForm = popup.querySelector('.order-form');

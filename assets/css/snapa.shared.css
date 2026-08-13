@@ -2508,6 +2508,78 @@ figcaption {
   line-height: 118%;
 }
 
+/* Compensates the line-height bump to 118% (added to stop SplitText's
+   mask overflow:clip from cutting off descenders) by pulling each
+   split line/word mask back up so the visual leading matches what it
+   was before, per element/breakpoint (see conversation for the
+   original-value table these margins were computed from: negative
+   margin-top = (original line-height% - 118%) / 100, in em so it
+   scales with that element's own font-size). Tablet/mobile overrides
+   live at the end of the 991px/767px @media blocks below. */
+.heroTitleLine-mask {
+  margin-top: -.18em;
+}
+
+.heroSubLine-mask {
+  margin-top: -.08em;
+}
+
+.aboutTitleLine-mask {
+  margin-top: -.18em;
+}
+
+.aboutSubLine-mask {
+  margin-top: -.08em;
+}
+
+.featureScrollTitleLine-mask {
+  margin-top: -.08em;
+}
+
+.listItemNumLine-mask {
+  margin-top: .02em;
+}
+
+.listItemTitleLine-mask {
+  margin-top: .02em;
+}
+
+.scrollMaskTitleLine-mask {
+  margin-top: -.28em;
+}
+
+.scrollMaskSubLine-mask {
+  margin-top: .12em;
+}
+
+.bigPrintTitleLine-mask {
+  margin-top: .02em;
+}
+
+.bigPrintSizeTextLine-mask {
+  margin-top: -.08em;
+}
+
+.bigPrintSizeNumLine-mask {
+  margin-top: -.28em;
+}
+
+.bigPrintSubLine-mask {
+  margin-top: -.18em;
+}
+
+.chooseTitleLine-mask {
+  margin-top: -.28em;
+}
+
+.controlTitleWord-mask {
+  margin-top: -.18em;
+}
+
+.controlSubWord-mask {
+  margin-top: .12em;
+}
+
 .section-feauture-scroll {
   background-color: #fbfcfd;
   grid-template-rows: 100vh 100vh 100vh 100vh 100vh 25vh;
@@ -3439,6 +3511,7 @@ figcaption {
   font-size: 10rem;
   font-weight: 500;
   line-height: 100%;
+  cursor: pointer;
   position: absolute;
   top: 11.25rem;
 }
@@ -4321,7 +4394,37 @@ figcaption {
     background-image: url("../images/6a70cfe7fa41638c9fa25f9d_mask-scroll-2-t.webp");
   }.mask-scroll_screen.is-3 {
     background-image: url("../images/6a70cfe7f2ad69dfe113d22b_mask-scroll-3-t.webp");
-  }}
+  }
+
+  /* Tablet overrides for the line/word-mask spacing compensation below (991px block) */
+  .heroTitleLine-mask {
+    margin-top: .02em;
+  }
+  .aboutTitleLine-mask {
+    margin-top: -.08em;
+  }
+  .aboutSubLine-mask {
+    margin-top: .12em;
+  }
+  .scrollMaskTitleLine-mask {
+    margin-top: -.18em;
+  }
+  .bigPrintSizeTextLine-mask {
+    margin-top: .12em;
+  }
+  .bigPrintSizeNumLine-mask {
+    margin-top: -.18em;
+  }
+  .bigPrintSubLine-mask {
+    margin-top: .02em;
+  }
+  .chooseTitleLine-mask {
+    margin-top: -.18em;
+  }
+  .controlSubWord-mask {
+    margin-top: -.08em;
+  }
+}
 
 @media screen and (max-width: 767px) {h1 {
     font-size: 2.5rem;
@@ -4351,7 +4454,25 @@ figcaption {
     background-image: url("../images/6a70cfe7fa41638c9fa25f9d_mask-scroll-2-m.webp");
   }.mask-scroll_screen.is-3 {
     background-image: url("../images/6a70cfe7f2ad69dfe113d22b_mask-scroll-3-m.webp");
-  }}
+  }
+
+  /* Mobile overrides for the line/word-mask spacing compensation (767px block) */
+  .aboutTitleLine-mask {
+    margin-top: -.18em;
+  }
+  .scrollMaskTitleLine-mask {
+    margin-top: -.28em;
+  }
+  .bigPrintSizeNumLine-mask {
+    margin-top: -.28em;
+  }
+  .chooseTitleLine-mask {
+    margin-top: -.28em;
+  }
+  .controlTitleWord-mask {
+    margin-top: -.28em;
+  }
+}
 
 @media screen and (max-width: 479px) {.section-hero {
     padding-top: .625rem;
