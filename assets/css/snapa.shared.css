@@ -4535,6 +4535,8 @@ figcaption {
     margin-bottom: .625rem;
     font-size: 3rem;
     line-height: 118%;
+  }.big-print_size-num .opacity {
+    display: none;
   }.choose_pin {
     grid-column-gap: .625rem;
     grid-row-gap: .625rem;
@@ -4574,6 +4576,7 @@ figcaption {
     grid-row-gap: .625rem;
     padding-left: .625rem;
     padding-right: .625rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
   }.control_title-item {
     opacity: 0;
