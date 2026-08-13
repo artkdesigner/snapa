@@ -2806,8 +2806,7 @@ figcaption {
   grid-auto-columns: 1fr;
   height: 250vh;
   margin-top: -100vh;
-  position: sticky;
-  top: 0;
+  position: relative;
 }
 
 .big-print_img {
@@ -4651,6 +4650,8 @@ figcaption {
     font-size: 3rem;
     line-height: 90%;
     top: 5rem;
+    padding-left: .625rem;
+    padding-right: .625rem;
   }.footer_content {
     grid-column-gap: 2.5rem;
     grid-row-gap: 2.5rem;
