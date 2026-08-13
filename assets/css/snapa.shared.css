@@ -2510,12 +2510,12 @@ figcaption {
 
 .section-feauture-scroll {
   background-color: #fbfcfd;
-  grid-template-rows: 100vh 100vh 100vh 100vh 100vh;
+  grid-template-rows: 100vh 100vh 100vh 100vh 100vh 50vh;
   grid-template-columns: 1fr;
   grid-auto-rows: 100vh;
   grid-auto-columns: 1fr;
   width: 100%;
-  height: 500vh;
+  height: 550vh;
   transition: background-color .6s;
   display: grid;
   position: relative;
