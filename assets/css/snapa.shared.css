@@ -2806,6 +2806,7 @@ figcaption {
 
 .section-choose {
   z-index: 6;
+  background-color: var(--bg);
   grid-column-gap: 16px;
   grid-row-gap: 16px;
   grid-template-rows: 100vh 100vh 100vh 100vh 100vh 100vh;
