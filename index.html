@@ -1206,23 +1206,48 @@
       // box, so a flat CSS margin-top on every word doesn't reliably pull
       // wrapped rows together the way it does for mask:'lines' (words on
       // the same row are inline-block, not stacked block boxes). Instead,
-      // measure each word's real position after split and only pull up
-      // the first word of each NEW row — same compensation this project
-      // uses elsewhere for the 118% line-height bump, just row-detected
-      // at runtime instead of guessed via a static class selector.
+      // measure each word's real position after split, group them into
+      // visual rows, and shift every row after the first by the same
+      // amount — same compensation this project uses elsewhere for the
+      // 118% line-height bump, just row-detected at runtime instead of
+      // guessed via a static class selector.
+      //
+      // Two dead ends on the way here, both confirmed live via devtools:
+      // (1) margin-top does nothing — these masks are inline-block with
+      // the default vertical-align:baseline, and a baseline-aligned
+      // inline-block's glyphs are positioned by aligning its baseline to
+      // the line's baseline, so margin-top only pads space above the box
+      // without ever moving that baseline. (2) transform: translateY()
+      // does move the box, but only applying it to the row's FIRST word
+      // (mirroring the margin-top attempt) desyncs it from its own
+      // row-mates, which never got the shift — every word in a shifted
+      // row needs the identical translateY, not just the first.
+      //
+      // The per-row shift also has to be cumulative (row i shifted by
+      // i * shiftEm), not flat. For mask:'lines' elsewhere on this site,
+      // a flat margin-top on every line works because block-level boxes
+      // cascade through normal flow — pulling line 2 up automatically
+      // pulls line 3's flow position up with it. transform never
+      // participates in flow, so nothing carries forward automatically;
+      // each row's shift has to be explicit or later rows stay at their
+      // full, uncompensated gap from the row above.
       function compressWrappedRows(words, desktopEm, tabletEm, mobileEm) {
         var mobileNow = window.matchMedia('(max-width: 767px)').matches;
         var tabletNow = !mobileNow && window.matchMedia('(max-width: 991px)').matches;
-        var marginEm = mobileNow ? mobileEm : (tabletNow ? tabletEm : desktopEm);
-        var lastTop = null;
+        var shiftEm = parseFloat(mobileNow ? mobileEm : (tabletNow ? tabletEm : desktopEm));
+        var rowTop = null;
+        var rowIndex = -1;
         words.forEach(function (word) {
           var mask = word.parentNode;
           if (!mask) return;
           var top = Math.round(mask.getBoundingClientRect().top);
-          if (lastTop !== null && top > lastTop + 2) {
-            mask.style.marginTop = marginEm;
+          if (rowTop === null || top > rowTop + 2) {
+            rowTop = top;
+            rowIndex++;
           }
-          lastTop = top;
+          if (rowIndex > 0) {
+            mask.style.transform = 'translateY(' + (shiftEm * rowIndex) + 'em)';
+          }
         });
       }
 
