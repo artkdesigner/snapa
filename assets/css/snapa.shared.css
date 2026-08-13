@@ -4527,6 +4527,8 @@ figcaption {
   }.big-print_sub {
     letter-spacing: -.0625rem;
     font-size: 1.25rem;
+  }.big-print_size-text {
+    margin-top: 0;
   }.big-print_size-num {
     letter-spacing: -.24rem;
     margin-top: .25rem;
@@ -4572,6 +4574,7 @@ figcaption {
     grid-row-gap: .625rem;
     padding-left: .625rem;
     padding-right: .625rem;
+    padding-bottom: 2rem;
   }.control_title-item {
     opacity: 0;
     padding-left: .625rem;
