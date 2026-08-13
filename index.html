@@ -1103,103 +1103,137 @@
     var pin = section.querySelector('.control_pin');
     var titleItem = pin.querySelector('.control_title-item');
   
-    var titleWords = [];
-    var subWords = [];
-  
-    SplitText.create(titleItem.querySelector('.control_title'), {
-      type: 'words',
-      mask: 'words',
-      autoSplit: true,
-      onSplit: function (self) {
-        titleWords = self.words;
+    function begin() {
+      var titleWords = [];
+      var subWords = [];
+
+      // В Safari/WebKit слово внутри маски рендерится чуть выше, чем GSAP
+      // измерил при её создании, — хвостики descender-букв (g, p, y) обрезаются
+      // overflow:clip. Меряем реальный излишек и компенсируем его padding-bottom
+      // на маске + таким же отрицательным margin-bottom, чтобы высота строки
+      // в потоке не изменилась и строки не разъехались.
+      function fixDescenderClip(words) {
+        words.forEach(function (word) {
+          var mask = word.parentNode;
+          if (!mask) return;
+          var maskBottom = mask.getBoundingClientRect().bottom;
+          var prevOverflow = mask.style.overflow;
+          mask.style.overflow = 'visible';
+          var wordBottom = word.getBoundingClientRect().bottom;
+          mask.style.overflow = prevOverflow;
+
+          var overflowAmount = wordBottom - maskBottom;
+          if (overflowAmount > 0) {
+            var padding = Math.ceil(overflowAmount) + 1;
+            mask.style.paddingBottom = padding + 'px';
+            mask.style.marginBottom = -padding + 'px';
+          }
+        });
       }
-    });
-  
-    SplitText.create(titleItem.querySelector('.control_sub'), {
-      type: 'words',
-      mask: 'words',
-      autoSplit: true,
-      onSplit: function (self) {
-        subWords = self.words;
-      }
-    });
-  
-    var steps = [1, 2, 3, 4].map(function (n) {
-      return {
-        item: pin.querySelector('.control_item.step-' + n),
-        line: pin.querySelector('.control_item.step-' + n + ' .control_item-line'),
-        phone: n === 1 ? null : pin.querySelector('.control_phone-screen.step-' + n),
-        badge: pin.querySelector('.control_step.step-' + n),
-        badgeTitle: pin.querySelector('.control_step.step-' + n + ' .step_title')
-      };
-    });
-  
-    var current = -1;
-    var EASE_IN = 'power2.out';
-    var EASE_OUT = 'power2.in';
-  
-    function enterTitle() {
-      var tl = gsap.timeline();
-      tl.fromTo(titleItem, { opacity: 0, yPercent: 20 }, { opacity: 1, yPercent: 0, duration: .6, ease: EASE_IN }, 0);
-      tl.fromTo(titleWords.concat(subWords), { yPercent: 100 }, { yPercent: 0, duration: .5, ease: EASE_IN, stagger: .03 }, '-=0.2');
-      return tl;
-    }
-  
-    function exitTitle() {
-      return gsap.to(titleItem, { opacity: 0, yPercent: -20, duration: .4, ease: EASE_OUT });
-    }
-  
-    function enterStep(s) {
-      var tl = gsap.timeline();
-      tl.fromTo(s.item, { opacity: 0, yPercent: 20 }, { opacity: 1, yPercent: 0, duration: .5, ease: EASE_IN }, 0);
-      if (s.line) tl.fromTo(s.line, { width: '0%' }, { width: '100%', duration: .5, ease: EASE_IN }, 0);
-      if (s.phone) tl.fromTo(s.phone, { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .5, ease: EASE_IN }, 0);
-      if (s.badge) tl.fromTo(s.badge, { opacity: .2 }, { opacity: 1, duration: .5, ease: EASE_IN }, 0);
-      if (s.badgeTitle) s.badgeTitle.classList.add('is-active');
-      return tl;
-    }
-  
-    function exitStep(s) {
-      var tl = gsap.timeline();
-      if (isTablet) {
-        tl.to(s.item, { opacity: 0, duration: .1 }, 0);
-      } else {
-        tl.to(s.item, { opacity: 0, yPercent: -20, duration: .4, ease: EASE_OUT }, 0);
-      }
-      if (s.phone) tl.to(s.phone, { opacity: 0, duration: .4, ease: EASE_OUT }, 0);
-      if (s.badge) tl.to(s.badge, { opacity: .2, duration: .4, ease: EASE_OUT }, 0);
-      if (s.badgeTitle) s.badgeTitle.classList.remove('is-active');
-      if (s.line) tl.set(s.line, { width: '0%' });
-      return tl;
-    }
-  
-    function goToStep(index) {
-      if (index === current) return;
-  
-      if (current === -1 && index === 0) {
-        section.classList.add('is-active');
-      }
-  
-      if (current === 0) {
-        if (!isTablet && !isMobile) exitTitle();
-      } else if (current > 0) {
-        exitStep(steps[current - 1]);
-      }
-  
-      if (index === 0) enterTitle();
-      else enterStep(steps[index - 1]);
-  
-      current = index;
-    }
-  
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        goToStep(Array.prototype.indexOf.call(markers, entry.target));
+
+      SplitText.create(titleItem.querySelector('.control_title'), {
+        type: 'words',
+        mask: 'words',
+        autoSplit: true,
+        onSplit: function (self) {
+          titleWords = self.words;
+          fixDescenderClip(titleWords);
+        }
       });
-    }, { threshold: .5 });
-  
-    markers.forEach(function (marker) { observer.observe(marker); });
+
+      SplitText.create(titleItem.querySelector('.control_sub'), {
+        type: 'words',
+        mask: 'words',
+        autoSplit: true,
+        onSplit: function (self) {
+          subWords = self.words;
+          fixDescenderClip(subWords);
+        }
+      });
+
+      var steps = [1, 2, 3, 4].map(function (n) {
+        return {
+          item: pin.querySelector('.control_item.step-' + n),
+          line: pin.querySelector('.control_item.step-' + n + ' .control_item-line'),
+          phone: n === 1 ? null : pin.querySelector('.control_phone-screen.step-' + n),
+          badge: pin.querySelector('.control_step.step-' + n),
+          badgeTitle: pin.querySelector('.control_step.step-' + n + ' .step_title')
+        };
+      });
+
+      var current = -1;
+      var EASE_IN = 'power2.out';
+      var EASE_OUT = 'power2.in';
+
+      function enterTitle() {
+        var tl = gsap.timeline();
+        tl.fromTo(titleItem, { opacity: 0, yPercent: 20 }, { opacity: 1, yPercent: 0, duration: .6, ease: EASE_IN }, 0);
+        tl.fromTo(titleWords.concat(subWords), { yPercent: 100 }, { yPercent: 0, duration: .5, ease: EASE_IN, stagger: .03 }, '-=0.2');
+        return tl;
+      }
+
+      function exitTitle() {
+        return gsap.to(titleItem, { opacity: 0, yPercent: -20, duration: .4, ease: EASE_OUT });
+      }
+
+      function enterStep(s) {
+        var tl = gsap.timeline();
+        tl.fromTo(s.item, { opacity: 0, yPercent: 20 }, { opacity: 1, yPercent: 0, duration: .5, ease: EASE_IN }, 0);
+        if (s.line) tl.fromTo(s.line, { width: '0%' }, { width: '100%', duration: .5, ease: EASE_IN }, 0);
+        if (s.phone) tl.fromTo(s.phone, { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .5, ease: EASE_IN }, 0);
+        if (s.badge) tl.fromTo(s.badge, { opacity: .2 }, { opacity: 1, duration: .5, ease: EASE_IN }, 0);
+        if (s.badgeTitle) s.badgeTitle.classList.add('is-active');
+        return tl;
+      }
+
+      function exitStep(s) {
+        var tl = gsap.timeline();
+        if (isTablet) {
+          tl.to(s.item, { opacity: 0, duration: .1 }, 0);
+        } else {
+          tl.to(s.item, { opacity: 0, yPercent: -20, duration: .4, ease: EASE_OUT }, 0);
+        }
+        if (s.phone) tl.to(s.phone, { opacity: 0, duration: .4, ease: EASE_OUT }, 0);
+        if (s.badge) tl.to(s.badge, { opacity: .2, duration: .4, ease: EASE_OUT }, 0);
+        if (s.badgeTitle) s.badgeTitle.classList.remove('is-active');
+        if (s.line) tl.set(s.line, { width: '0%' });
+        return tl;
+      }
+
+      function goToStep(index) {
+        if (index === current) return;
+
+        if (current === -1 && index === 0) {
+          section.classList.add('is-active');
+        }
+
+        if (current === 0) {
+          if (!isTablet && !isMobile) exitTitle();
+        } else if (current > 0) {
+          exitStep(steps[current - 1]);
+        }
+
+        if (index === 0) enterTitle();
+        else enterStep(steps[index - 1]);
+
+        current = index;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          goToStep(Array.prototype.indexOf.call(markers, entry.target));
+        });
+      }, { threshold: .5 });
+
+      markers.forEach(function (marker) { observer.observe(marker); });
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(begin);
+    } else {
+      begin();
+    }
   })();
 </script>
 
