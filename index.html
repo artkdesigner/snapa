@@ -219,7 +219,6 @@
         });
 
         gsap.set(tracks, { y: function (i) { return tracks[i]._rowHeight; } });
-        gsap.set(logo, { opacity: 1 });
         phase = 'intro';
 
         var introTl = gsap.timeline({
@@ -233,6 +232,8 @@
             startFlipLoop(tracks);
           }
         });
+
+        introTl.fromTo(logo, { opacity: 0 }, { opacity: 1, duration: INTRO_DURATION, ease: 'power2.out' }, 0);
 
         tracks.forEach(function (track, i) {
           introTl.fromTo(track,
@@ -992,6 +993,7 @@
 
   var textElements = section.querySelectorAll('.big-print_title, .big-print_size-text, .big-print_size-num, .big-print_sub');
   var img = section.querySelector('.big-print_img');
+  var imgWrap = section.querySelector('.big-print_img-wrap');
   if (!textElements.length && !img) return;
 
   function bindLenis() {
@@ -1076,6 +1078,15 @@
 
     if (subEntry) {
       tl.to(subEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 });
+    }
+
+    // На планшете/мобильном картинка стоит под текстом в колонку, поэтому
+    // даём ей появиться slide-up последней, после всего текста, а не
+    // одновременно с ним, как это было бы на десктопе с side-by-side раскладкой.
+    var isTabletOrMobile = window.matchMedia('(max-width: 991px)').matches;
+    if (imgWrap && isTabletOrMobile) {
+      gsap.set(imgWrap, { opacity: 0, yPercent: 30 });
+      tl.to(imgWrap, { opacity: 1, yPercent: 0, duration: .8, ease: 'power3.out' });
     }
   }
 

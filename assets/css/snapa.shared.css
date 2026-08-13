@@ -4138,6 +4138,7 @@ figcaption {
     line-height: 118%;
   }.big-print_size-text {
     letter-spacing: -.035rem;
+    margin-top: 0;
     font-size: .875rem;
     line-height: 118%;
   }.big-print_size-num {
@@ -4261,7 +4262,7 @@ figcaption {
     grid-column-gap: 2.5rem;
     grid-row-gap: 2.5rem;
     flex-flow: column;
-    padding: 5rem 1.25rem;
+    padding: 5rem 1.25rem 1.25rem;
   }.control_title-item {
     grid-column-gap: 1.25rem;
     grid-row-gap: 1.25rem;
@@ -4645,13 +4646,14 @@ figcaption {
     display: none;
   }.no-wrap {
     white-space: normal;
+  }.footer {
+    padding-left: .625rem;
+    padding-right: .625rem;
   }.footer_title {
     letter-spacing: -.24rem;
     font-size: 3rem;
     line-height: 90%;
     top: 5rem;
-    padding-left: .625rem;
-    padding-right: .625rem;
   }.footer_content {
     grid-column-gap: 2.5rem;
     grid-row-gap: 2.5rem;
