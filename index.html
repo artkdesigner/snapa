@@ -587,8 +587,17 @@
   }
   window.addEventListener('scroll', tryOpenFirstStepGate, { passive: true });
 
+  // При высоте маркера 50vh и вьюпорте 100vh соседние маркеры математически
+  // всегда частично пересекаются в зоне threshold:0.5 — на всём протяжении
+  // «своей» активной зоны маркер i делит её с соседом. Поэтому во время
+  // скролла, вызванного кликом по пункту списка, наблюдатель может увидеть
+  // сразу несколько пересекающихся маркеров и применить не тот шаг. На
+  // время такого скролла игнорируем наблюдатель — шаг уже выставлен кликом.
+  let clickOverrideUntil = 0;
+
   const observer = new IntersectionObserver(
     (entries) => {
+      if (performance.now() < clickOverrideUntil) return;
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           var step = markers.indexOf(entry.target);
@@ -606,22 +615,25 @@
 
   markers.forEach((m) => observer.observe(m));
 
-  // Клик по пункту списка — скролл к соответствующему слайду.
-  // Первый маркер стоит вровень с верхним краем секции — той же точкой,
-  // где ScrollTrigger заголовка триггерит reverse ('top top'). Небольшой
-  // отступ гарантирует, что мы всегда попадаем чуть ниже границы и не
-  // задеваем эту анимацию.
-  function goToMarker(marker) {
+  // Клик по пункту списка — сразу показываем нужный шаг и скроллим к
+  // соответствующему маркеру. Первый маркер стоит вровень с верхним краем
+  // секции — той же точкой, где ScrollTrigger заголовка триггерит reverse
+  // ('top top'). Небольшой отступ гарантирует, что мы всегда попадаем чуть
+  // ниже границы и не задеваем эту анимацию.
+  function goToMarker(marker, step) {
     if (!marker) return;
+    firstStepGateOpen = true;
+    setStep(step);
+    clickOverrideUntil = performance.now() + 1400;
     if (window.lenis) {
       window.lenis.scrollTo(marker.getBoundingClientRect().top + window.scrollY + 20);
     } else {
-      requestAnimationFrame(function () { goToMarker(marker); });
+      requestAnimationFrame(function () { goToMarker(marker, step); });
     }
   }
 
   items.forEach((item, i) => {
-    item.addEventListener('click', () => goToMarker(markers[i]));
+    item.addEventListener('click', () => goToMarker(markers[i], i));
   });
 </script>
 
