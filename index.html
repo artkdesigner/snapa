@@ -1061,14 +1061,14 @@
     const isDesktop = !isMobile && !isTablet;
   
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    let targetWidthRem = 43.75;
-    let targetHeightRem = 38.75;
+    let targetWidthRem = 32.8125;
+    let targetHeightRem = 29.0625;
     if (isTablet) {
-      targetWidthRem = 29.875;
-      targetHeightRem = 33.75;
+      targetWidthRem = 22.40625;
+      targetHeightRem = 25.3125;
     } else if (isMobile) {
-      targetWidthRem = 18;
-      targetHeightRem = 20.25;
+      targetWidthRem = 13.5;
+      targetHeightRem = 15.1875;
     }
     const targetWidth = targetWidthRem * rootFontSize;
     const targetHeight = targetHeightRem * rootFontSize;

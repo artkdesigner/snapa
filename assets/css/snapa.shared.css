@@ -2741,7 +2741,7 @@ figcaption {
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
   grid-auto-columns: 1fr;
-  height: 200vh;
+  height: 250vh;
   margin-top: -100vh;
   position: sticky;
   top: 0;
@@ -2881,9 +2881,9 @@ figcaption {
 
 .choose_markers {
   pointer-events: none;
-  grid-template-rows: 100vh 100vh 100vh;
+  grid-template-rows: 50vh 50vh 50vh;
   grid-template-columns: 1fr;
-  grid-auto-rows: 100vh;
+  grid-auto-rows: 50vh;
   display: grid;
 }
 
