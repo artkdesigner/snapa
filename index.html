@@ -294,8 +294,7 @@
   setTimeout(stopLetterLoopAndProceed, HARD_FALLBACK_TIME);
 
   function begin() {
-    gsap.set(logo, { opacity: 1 });
-    startLetterLoop();
+    gsap.to(logo, { opacity: 1, duration: .6, ease: 'power2.out', onComplete: startLetterLoop });
   }
 
   if (document.fonts && document.fonts.ready) {
