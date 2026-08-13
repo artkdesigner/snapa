@@ -4147,6 +4147,8 @@ figcaption {
     margin-bottom: 0;
     font-size: 5.25rem;
     line-height: 118%;
+  }.big-print_size-num .opacity {
+    display: none;
   }.big-print_img-wrap {
     flex: 1;
     height: auto;
