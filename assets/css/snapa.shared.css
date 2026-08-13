@@ -2628,6 +2628,7 @@ figcaption {
   transition: all 1s;
   display: flex;
   position: relative;
+  cursor: pointer;
 }
 
 .feature-scroll_list-item.list-item-active {

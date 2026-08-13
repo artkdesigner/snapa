@@ -574,6 +574,20 @@
   );
 
   markers.forEach((m) => observer.observe(m));
+
+  // Клик по пункту списка — скролл к соответствующему слайду
+  function goToMarker(marker) {
+    if (!marker) return;
+    if (window.lenis) {
+      window.lenis.scrollTo(marker.getBoundingClientRect().top + window.scrollY);
+    } else {
+      requestAnimationFrame(function () { goToMarker(marker); });
+    }
+  }
+
+  items.forEach((item, i) => {
+    item.addEventListener('click', () => goToMarker(markers[i]));
+  });
 </script>
 
 <script>
