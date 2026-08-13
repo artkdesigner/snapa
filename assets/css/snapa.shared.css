@@ -3830,6 +3830,16 @@ figcaption {
   height: 100%;
 }
 
+.product-card_price {
+  letter-spacing: -.04rem;
+  margin-bottom: 0;
+  font-weight: 500;
+  line-height: 110%;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
 .form_products-list {
   grid-column-gap: 1.875rem;
   grid-row-gap: 1.875rem;
@@ -4645,6 +4655,11 @@ figcaption {
   }.product-card_title {
     letter-spacing: -.035rem;
     font-size: .875rem;
+  }.product-card_price {
+    letter-spacing: -.035rem;
+    font-size: .875rem;
+    bottom: .625rem;
+    left: .625rem;
   }.product-card_image {
     object-fit: contain;
     flex: none;
