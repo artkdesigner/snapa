@@ -953,7 +953,7 @@
     ScrollTrigger.refresh();
   });
 
-  var STEP_STAGGER = .2;
+  var SIZE_STAGGER = .3;
 
   if (img) {
     gsap.fromTo(img,
@@ -1009,9 +1009,19 @@
       }
     });
 
-    entries.forEach(function (entry, i) {
-      tl.to(entry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 }, i * STEP_STAGGER);
+    var titleEntry = entries[0];
+    var sizeEntries = entries.slice(1, 4);
+    var subEntry = entries[4];
+
+    tl.to(titleEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 });
+
+    sizeEntries.forEach(function (entry, i) {
+      tl.to(entry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 }, i === 0 ? undefined : '<' + SIZE_STAGGER);
     });
+
+    if (subEntry) {
+      tl.to(subEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 });
+    }
   }
 
   if (document.fonts && document.fonts.ready) {
@@ -1438,9 +1448,11 @@
     });
 
     // Контент control/big-print плавно уходит в opacity: 0, пока наезжает следующая секция
+    // Затухание стартует только когда следующая секция наслоилась примерно на 30%
     var fadePairs = [
       ['.control_pin', '.footer'],
       ['.big-print_pin', '.section-choose'],
+      ['.section-feauture-scroll', '.section-mask-scroll'],
       ['.section-mask-scroll', '.section-big-print'],
       ['.section-presets', '.section-control']
     ];
@@ -1457,7 +1469,7 @@
           ease: 'none',
           scrollTrigger: {
             trigger: next,
-            start: 'top bottom',
+            start: 'top 70%',
             end: 'top top',
             scrub: true
           }

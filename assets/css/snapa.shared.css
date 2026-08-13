@@ -3715,6 +3715,9 @@ figcaption {
 .order_img {
   object-fit: cover;
   width: 50%;
+  height: 100%;
+  min-height: 0;
+  flex: none;
 }
 
 .order-form {
