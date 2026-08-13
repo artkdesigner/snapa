@@ -2464,7 +2464,7 @@ figcaption {
   letter-spacing: -.0175rem;
   max-width: 10.25rem;
   font-size: .875rem;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .hero_title {
@@ -2472,7 +2472,7 @@ figcaption {
   width: 43rem;
   font-size: 3rem;
   font-weight: 500;
-  line-height: 100%;
+  line-height: 118%;
 }
 
 .section-about {
@@ -2499,13 +2499,13 @@ figcaption {
   letter-spacing: -.385rem;
   font-size: 5.5rem;
   font-weight: 500;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .about_sub {
   letter-spacing: -.04rem;
   width: 22.6875rem;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .section-feauture-scroll {
@@ -2611,7 +2611,7 @@ figcaption {
   letter-spacing: -.04rem;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .feature-scroll_list-item {
@@ -2645,7 +2645,7 @@ figcaption {
   flex: 1;
   font-size: 2.75rem;
   font-weight: 500;
-  line-height: 120%;
+  line-height: 118%;
 }
 
 .list-item_line {
@@ -2727,14 +2727,14 @@ figcaption {
   letter-spacing: -1.1875rem;
   font-size: 11.875rem;
   font-weight: 500;
-  line-height: 90%;
+  line-height: 118%;
 }
 
 .scroll-mask_sub {
   letter-spacing: -.025rem;
   max-width: 21.75rem;
   font-size: 1.25rem;
-  line-height: 130%;
+  line-height: 118%;
 }
 
 .section-big-print {
@@ -2767,7 +2767,7 @@ figcaption {
   letter-spacing: -1.1875rem;
   font-size: 11.875rem;
   font-weight: 500;
-  line-height: 120%;
+  line-height: 118%;
 }
 
 .big-print_size {
@@ -2779,19 +2779,19 @@ figcaption {
 .big-print_sub {
   letter-spacing: -.15rem;
   font-size: 3rem;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .big-print_size-text {
   letter-spacing: -.04rem;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .big-print_size-num {
   letter-spacing: -1.1875rem;
   margin-bottom: .625rem;
   font-size: 11.875rem;
-  line-height: 90%;
+  line-height: 118%;
 }
 
 .big-print_size-x {
@@ -2877,7 +2877,7 @@ figcaption {
   letter-spacing: -1.1875rem;
   font-size: 11.875rem;
   font-weight: 500;
-  line-height: 90%;
+  line-height: 118%;
   position: absolute;
   left: 1.875rem;
 }
@@ -3215,7 +3215,7 @@ figcaption {
   letter-spacing: -.2rem;
   font-size: 5.5rem;
   font-weight: 500;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 
@@ -3225,7 +3225,7 @@ figcaption {
 .control_sub {
   letter-spacing: -.02rem;
   max-width: 20rem;
-  line-height: 110%;
+  line-height: 118%;
 }
 
 .text-span-3, .text-span-4 {
@@ -3906,7 +3906,7 @@ figcaption {
 }
 
 .list-item_num {
-  line-height: 120%;
+  line-height: 118%;
 }
 
 .opacity {
@@ -3950,7 +3950,7 @@ figcaption {
     letter-spacing: -.075rem;
     width: 26.25rem;
     font-size: 1.5rem;
-    line-height: 120%;
+    line-height: 118%;
   }.about_content {
     grid-column-gap: 2.5rem;
     grid-row-gap: 2.5rem;
@@ -3958,12 +3958,12 @@ figcaption {
   }.about_title {
     letter-spacing: -.23625rem;
     font-size: 3.375rem;
-    line-height: 110%;
+    line-height: 118%;
   }.about_sub {
     letter-spacing: -.035rem;
     width: 20.375rem;
     font-size: .875rem;
-    line-height: 130%;
+    line-height: 118%;
   }.feature-scroll_pin {
     grid-column-gap: 1.25rem;
     grid-row-gap: 1.25rem;
@@ -3999,7 +3999,7 @@ figcaption {
   }.scroll-mask_title {
     letter-spacing: -.42rem;
     font-size: 5.25rem;
-    line-height: 100%;
+    line-height: 118%;
   }.big-print_left {
     flex: none;
     justify-content: flex-start;
@@ -4019,17 +4019,17 @@ figcaption {
     text-align: center;
     letter-spacing: -.075rem;
     font-size: 1.5rem;
-    line-height: 120%;
+    line-height: 118%;
   }.big-print_size-text {
     letter-spacing: -.035rem;
     font-size: .875rem;
-    line-height: 130%;
+    line-height: 118%;
   }.big-print_size-num {
     letter-spacing: -.42rem;
     margin-top: -.625rem;
     margin-bottom: 0;
     font-size: 5.25rem;
-    line-height: 100%;
+    line-height: 118%;
   }.big-print_img-wrap {
     flex: 1;
     height: auto;
@@ -4051,7 +4051,7 @@ figcaption {
   }.choose_title {
     letter-spacing: -.42rem;
     font-size: 5.25rem;
-    line-height: 100%;
+    line-height: 118%;
     bottom: 22.5rem;
     left: auto;
   }.choose_circles-wrap {
@@ -4162,7 +4162,7 @@ figcaption {
   }.control_sub {
     letter-spacing: -.0175rem;
     font-size: .875rem;
-    line-height: 110%;
+    line-height: 118%;
   }.control_phone {
     height: auto;
   }.control_phone-wrap {
@@ -4380,7 +4380,7 @@ figcaption {
   }.about_title {
     letter-spacing: -.14875rem;
     font-size: 2.125rem;
-    line-height: 110%;
+    line-height: 118%;
   }.about_sub {
     width: 17.5rem;
   }.feature-scroll_pin {
@@ -4402,7 +4402,7 @@ figcaption {
   }.scroll-mask_title {
     letter-spacing: -.24rem;
     font-size: 3rem;
-    line-height: 90%;
+    line-height: 118%;
   }.scroll-mask_sub {
     letter-spacing: -.035rem;
     max-width: 17rem;
@@ -4422,7 +4422,7 @@ figcaption {
     margin-top: .25rem;
     margin-bottom: .625rem;
     font-size: 3rem;
-    line-height: 90%;
+    line-height: 118%;
   }.choose_pin {
     grid-column-gap: .625rem;
     grid-row-gap: .625rem;
@@ -4432,7 +4432,7 @@ figcaption {
   }.choose_title {
     letter-spacing: -.24rem;
     font-size: 3rem;
-    line-height: 90%;
+    line-height: 118%;
   }.presets_text.text-1, .presets_text.text-2, .presets_text.text-3 {
     max-width: 10rem;
   }.presets_text.text-4 {
@@ -4473,7 +4473,7 @@ figcaption {
     letter-spacing: -.175rem;
     width: 100%;
     font-size: 3rem;
-    line-height: 110%;
+    line-height: 118%;
   }.control_sub {
     max-width: 17.5rem;
   }.control_phone-wrap {
