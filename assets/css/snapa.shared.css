@@ -2845,11 +2845,13 @@ figcaption {
 
 .big-print_size-text {
   letter-spacing: -.04rem;
+  margin-top: -2rem;
   line-height: 118%;
 }
 
 .big-print_size-num {
   letter-spacing: -1.1875rem;
+  margin-top: -2rem;
   margin-bottom: .625rem;
   font-size: 11.875rem;
   line-height: 118%;
@@ -2869,12 +2871,12 @@ figcaption {
   z-index: 6;
   grid-column-gap: 16px;
   grid-row-gap: 16px;
-  grid-template-rows: 100vh 100vh 100vh 100vh 100vh;
+  grid-template-rows: 100vh 100vh 100vh 100vh 100vh 100vh;
   grid-template-columns: 1fr;
   grid-auto-rows: 100vh;
   grid-auto-columns: 1fr;
   width: 100%;
-  height: 500vh;
+  height: 600vh;
   display: grid;
   position: relative;
   overflow: clip;
@@ -4699,7 +4701,7 @@ figcaption {
 }
 
 #w-node-_362e4db6-1f37-cc06-22b8-90f40f5bbbcb-04a25b14 {
-  grid-area: 1 / 1 / 6 / 2;
+  grid-area: 1 / 1 / 7 / 2;
 }
 
 #w-node-_362e4db6-1f37-cc06-22b8-90f40f5bbbdf-04a25b14 {
