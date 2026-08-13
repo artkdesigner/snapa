@@ -562,11 +562,42 @@
 
   setStep(0); // состояние до первого скролла к секции
 
+  // Первые 25vh после того, как секция дошла до верхнего края, не даём
+  // переключать шаг — иначе первый слайд перелистывается почти сразу,
+  // пользователь не успевает с ним ознакомиться. Пока «ворота» закрыты,
+  // просто запоминаем, какой шаг должен быть активен, и применяем его
+  // разом, как только скролл пересёк отметку — так ни один переход не
+  // теряется, даже если маркер сработал раньше срока.
+  const featureScrollSection = document.querySelector('.section-feauture-scroll');
+  const FIRST_STEP_DELAY_VH = 25;
+  let firstStepGateOpen = false;
+  let pendingStep = 0;
+
+  function firstStepDelayScrollY() {
+    if (!featureScrollSection) return 0;
+    var sectionTop = featureScrollSection.getBoundingClientRect().top + window.scrollY;
+    return sectionTop + (FIRST_STEP_DELAY_VH / 100) * window.innerHeight;
+  }
+
+  function tryOpenFirstStepGate() {
+    if (firstStepGateOpen || window.scrollY < firstStepDelayScrollY()) return;
+    firstStepGateOpen = true;
+    setStep(pendingStep);
+    window.removeEventListener('scroll', tryOpenFirstStepGate);
+  }
+  window.addEventListener('scroll', tryOpenFirstStepGate, { passive: true });
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setStep(markers.indexOf(entry.target));
+          var step = markers.indexOf(entry.target);
+          if (!firstStepGateOpen) {
+            pendingStep = step;
+            tryOpenFirstStepGate();
+            return;
+          }
+          setStep(step);
         }
       });
     },
