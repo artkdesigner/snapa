@@ -670,25 +670,6 @@
   
     var TITLE_DURATION = .7;
     var ITEM_STAGGER = .15;
-  
-    // Одноразовое интро для картинки первого шага — не должно мешать степ-скрипту
-    var heroImg = section.querySelector('.feature-scroll_image-slide.is-1 .feature-scroll_img');
-    if (heroImg) {
-      gsap.set(heroImg, { scale: 1.2 });
-      gsap.to(heroImg, {
-        scale: 1,
-        duration: TITLE_DURATION,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          once: true
-        },
-        onComplete: function () {
-          gsap.set(heroImg, { clearProps: 'transform' });
-        }
-      });
-    }
 
     // Плавное исчезновение about_content и смещение section-about вверх
     // во время наезда следующей секции; смена фона на var(--bg), когда
