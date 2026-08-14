@@ -1463,14 +1463,24 @@
           section.classList.add('is-active');
         }
 
-        if (current === 0) {
-          if (!isTablet && !isMobile) exitTitle();
-        } else if (current > 0) {
-          exitStep(steps[current - 1]);
+        function doEnter() {
+          if (index === 0) enterTitle();
+          else enterStep(steps[index - 1]);
         }
 
-        if (index === 0) enterTitle();
-        else enterStep(steps[index - 1]);
+        if (isTablet && current > 0) {
+          // На планшете сначала полностью доигрываем исчезновение текущего
+          // control_item и только потом запускаем появление следующего —
+          // иначе они накладываются друг на друга и выглядит некрасиво.
+          exitStep(steps[current - 1]).eventCallback('onComplete', doEnter);
+        } else {
+          if (current === 0) {
+            if (!isTablet && !isMobile) exitTitle();
+          } else if (current > 0) {
+            exitStep(steps[current - 1]);
+          }
+          doEnter();
+        }
 
         current = index;
       }
