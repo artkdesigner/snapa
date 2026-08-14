@@ -4687,7 +4687,7 @@ figcaption {
   }.popup-order {
     grid-column-gap: .625rem;
     grid-row-gap: .625rem;
-    padding: 0 .625rem .625rem;
+    padding: 0 .625rem 5rem;
   }.order_header {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
