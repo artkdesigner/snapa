@@ -3478,6 +3478,8 @@ figcaption {
   align-items: center;
   margin-top: -100vh;
   padding-bottom: 0;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
   display: flex;
   position: relative;
   overflow: hidden;
