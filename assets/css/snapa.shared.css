@@ -3980,6 +3980,7 @@ figcaption {
 }
 
 .preloader_logo {
+  opacity: 0;
   font-size: 20.625rem;
   font-weight: 500;
   line-height: 80%;
