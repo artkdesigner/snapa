@@ -1119,7 +1119,7 @@
       else if (i > step) el.classList.add('is-next');
     });
 
-    chooseCircle.style.transform = `rotate(${step * 90}deg)`;
+    chooseCircle.style.transform = `rotate(${step * -90}deg)`;
 
     chooseNum.textContent = String(step + 1).padStart(2, '0');
   }
