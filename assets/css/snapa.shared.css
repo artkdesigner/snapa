@@ -3478,8 +3478,6 @@ figcaption {
   align-items: center;
   margin-top: -100vh;
   padding-bottom: 0;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -4308,8 +4306,8 @@ figcaption {
     font-size: 0;
   }.step_title.is-active {
     font-size: .875rem;
-  }.step_title.step-4 {
-    max-width: 8rem;
+  }.control_step.step-4 .step_title {
+    max-width: 8.5rem;
   }.control_item {
     width: 22.75rem;
   }.control_item.step-1 {
@@ -4654,6 +4652,8 @@ figcaption {
   }.control_steps-wrap {
     left: auto;
     right: auto;
+  }.control_step.step-4 .step_title.is-active {
+    font-size: .75rem;
   }.control_item {
     display: none;
   }.no-wrap {
