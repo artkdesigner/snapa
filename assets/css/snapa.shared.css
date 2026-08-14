@@ -4590,6 +4590,8 @@ figcaption {
     line-height: 118%;
   }.big-print_size-num .opacity {
     display: none;
+  }.big-print_title .opacity {
+    display: none;
   }.choose_pin {
     grid-column-gap: .625rem;
     grid-row-gap: .625rem;
