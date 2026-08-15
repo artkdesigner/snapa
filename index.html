@@ -1523,7 +1523,7 @@
 </script>
 
 <script>
-  // Параллакс: секция смещается вверх на 25vh, пока следующая секция наезжает на неё
+  // Уходящая секция уменьшается до scale 0.7, пока следующая секция наезжает на неё
   (function () {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
@@ -1554,9 +1554,9 @@
       if (!current || !next) return;
 
       gsap.fromTo(current,
-        { y: 0 },
+        { scale: 1 },
         {
-          y: '-25vh',
+          scale: .7,
           ease: 'none',
           scrollTrigger: {
             trigger: next,
