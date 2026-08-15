@@ -1276,9 +1276,24 @@
   (function () {
     var section = document.querySelector('.section-control');
     if (!section || typeof gsap === 'undefined') return;
-  
+
     gsap.registerPlugin(SplitText);
-  
+
+    // Смена фона на var(--bg) привязана к тому же 'top top' триггеру, что и
+    // остальные наезды на сайте, а не к пересечению маркера title-шага —
+    // на планшете/мобильном title-маркер уменьшен до 15vh/12vh (см. заметку
+    // про dead scroll padding), из-за чего его 50%-порог пересекался ещё
+    // под предыдущей (presets) секцией, и смена фона происходила невидимо
+    // до того, как control реально появлялась на экране.
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        toggleClass: { targets: section, className: 'is-active' }
+      });
+    }
+
     var isMobile = window.matchMedia('(max-width: 767px)').matches;
     var isTablet = !isMobile && window.matchMedia('(max-width: 991px)').matches;
   
@@ -1458,10 +1473,6 @@
 
       function goToStep(index) {
         if (index === current) return;
-
-        if (current === -1 && index === 0) {
-          section.classList.add('is-active');
-        }
 
         function doEnter() {
           if (index === 0) enterTitle();
