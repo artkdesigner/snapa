@@ -2962,7 +2962,6 @@ figcaption {
   height: 100%;
   transition: transform .8s;
   position: absolute;
-  will-change: transform;
 }
 
 .choose_circles-wrap {
@@ -3049,7 +3048,6 @@ figcaption {
   transition: transform .8s;
   position: absolute;
   top: 0;
-  will-change: transform;
 }
 
 .choose_name.is-next {
