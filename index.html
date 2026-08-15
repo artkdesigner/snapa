@@ -763,7 +763,7 @@
     var TITLE_DURATION = .7;
     var ITEM_STAGGER = .15;
 
-    // Плавное исчезновение about_content и scale section-about до 0.7
+    // Плавное исчезновение about_content и смещение section-about вверх
     // во время наезда следующей секции; смена фона на var(--bg), когда
     // секция дошла до верхнего края
     var aboutSection = document.querySelector('.section-about');
@@ -771,9 +771,9 @@
 
     if (aboutSection) {
       gsap.fromTo(aboutSection,
-        { scale: 1 },
+        { y: 0 },
         {
-          scale: .7,
+          y: '-25vh',
           ease: 'none',
           scrollTrigger: {
             trigger: section,
@@ -1523,7 +1523,7 @@
 </script>
 
 <script>
-  // Уходящая секция уменьшается до scale 0.7, пока следующая секция наезжает на неё
+  // Параллакс: секция смещается вверх на 25vh, пока следующая секция наезжает на неё
   (function () {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
@@ -1554,9 +1554,9 @@
       if (!current || !next) return;
 
       gsap.fromTo(current,
-        { scale: 1 },
+        { y: 0 },
         {
-          scale: .7,
+          y: '-25vh',
           ease: 'none',
           scrollTrigger: {
             trigger: next,
