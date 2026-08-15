@@ -1074,14 +1074,14 @@
     var sizeEntries = entries.slice(1, 4);
     var subEntry = entries[4];
 
-    tl.to(titleEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 }, 0);
+    tl.to(titleEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 });
 
     sizeEntries.forEach(function (entry, i) {
-      tl.to(entry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 }, i === 0 ? 0 : '<' + SIZE_STAGGER);
+      tl.to(entry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 }, i === 0 ? '+=0.1' : '<' + SIZE_STAGGER);
     });
 
     if (subEntry) {
-      tl.to(subEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 }, 0);
+      tl.to(subEntry.lines, { yPercent: 0, duration: 1, ease: 'power3.out', stagger: .1 });
     }
 
     // На планшете/мобильном картинка стоит под текстом в колонку, поэтому
