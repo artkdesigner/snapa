@@ -763,7 +763,7 @@
     var TITLE_DURATION = .7;
     var ITEM_STAGGER = .15;
 
-    // Плавное исчезновение about_content и смещение section-about вверх
+    // Плавное исчезновение about_content и scale section-about до 0.7
     // во время наезда следующей секции; смена фона на var(--bg), когда
     // секция дошла до верхнего края
     var aboutSection = document.querySelector('.section-about');
@@ -771,9 +771,9 @@
 
     if (aboutSection) {
       gsap.fromTo(aboutSection,
-        { y: 0 },
+        { scale: 1 },
         {
-          y: '-25vh',
+          scale: .7,
           ease: 'none',
           scrollTrigger: {
             trigger: section,
