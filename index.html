@@ -1757,6 +1757,26 @@
 </script>
 
 <script>
+  // Эффект нажатия (scale 0.9) для кнопки Order.
+  // .button также получает GSAP yPercent-анимацию появления в hero, которая
+  // оставляет свой inline transform — CSS-based :active{transform} был бы
+  // перебит этим inline-стилем, поэтому scale тоже делаем через GSAP.
+  (function () {
+    if (typeof gsap === 'undefined') return;
+    document.querySelectorAll('.button').forEach(function (btn) {
+      btn.addEventListener('pointerdown', function () {
+        gsap.to(btn, { scale: .9, duration: .15, ease: 'power2.out' });
+      });
+      ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (evt) {
+        btn.addEventListener(evt, function () {
+          gsap.to(btn, { scale: 1, duration: .2, ease: 'power2.out' });
+        });
+      });
+    });
+  })();
+</script>
+
+<script>
   // Скрипт для формы заказа
   (function () {
     var form = document.querySelector('.order-form');
