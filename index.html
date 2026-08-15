@@ -765,13 +765,7 @@
 
     // Плавное исчезновение about_content и смещение section-about вверх
     // во время наезда следующей секции; смена фона на var(--bg), когда
-    // секция дошла до верхнего края.
-    // Это НЕ настоящий наезд (у feature-scroll нет отрицательного margin-top
-    // — секции просто стыкуются встык, section-about держится поверх через
-    // собственный position:sticky + z-index:1), поэтому сюда не подходит
-    // тот же "next обгоняет current" фикс, что и для пар с реальным наездом
-    // ниже — секция здесь не может быть видна раньше, чем about исчерпает
-    // свой sticky-диапазон, так что двигаем именно уходящую about.
+    // секция дошла до верхнего края
     var aboutSection = document.querySelector('.section-about');
     var aboutContent = document.querySelector('.about_content');
 
@@ -1540,10 +1534,7 @@
 </script>
 
 <script>
-  // Параллакс: НАСТУПАЮЩАЯ секция смещается вверх на дополнительные 25vh,
-  // пока наезжает на предыдущую — так она обгоняет предыдущую по скорости
-  // скролла, а не наоборот (раньше лишний -25vh получала уходящая секция,
-  // и выглядело так, будто она уезжает быстрее, чем приходит новая).
+  // Параллакс: секция смещается вверх на 25vh, пока следующая секция наезжает на неё
   (function () {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
@@ -1573,7 +1564,7 @@
       var next = document.querySelector(pair[1]);
       if (!current || !next) return;
 
-      gsap.fromTo(next,
+      gsap.fromTo(current,
         { y: 0 },
         {
           y: '-25vh',
