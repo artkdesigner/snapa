@@ -99,6 +99,7 @@
   .choose_screen {
     transition: clip-path .8s ease;
     clip-path: circle(150% at 100% 50%); /* открыт */
+    will-change: clip-path;
   }
   .choose_screen.is-next {
     clip-path: circle(0% at 100% 50%); /* свёрнут */
