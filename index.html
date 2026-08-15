@@ -1493,6 +1493,25 @@
       }, { threshold: .5 });
 
       markers.forEach(function (marker) { observer.observe(marker); });
+
+      // Клик по badge (control_step) сразу переключает шаг и скроллит к
+      // соответствующему маркеру — index шага n живёт на markers[n]
+      // (markers[0] — маркер вступительного тайтла, без своего badge).
+      steps.forEach(function (s, i) {
+        if (!s.badge) return;
+        var markerIndex = i + 1;
+        var marker = markers[markerIndex];
+        if (!marker) return;
+        s.badge.style.cursor = 'pointer';
+        s.badge.addEventListener('click', function () {
+          goToStep(markerIndex);
+          if (window.lenis) {
+            window.lenis.scrollTo(marker.getBoundingClientRect().top + window.scrollY + 20);
+          } else {
+            marker.scrollIntoView();
+          }
+        });
+      });
     }
 
     if (document.fonts && document.fonts.ready) {

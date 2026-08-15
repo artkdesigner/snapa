@@ -3365,6 +3365,7 @@ figcaption {
 
 .control_step {
   opacity: .2;
+  cursor: pointer;
   justify-content: flex-start;
   align-items: center;
   display: flex;
