@@ -763,27 +763,9 @@
     var TITLE_DURATION = .7;
     var ITEM_STAGGER = .15;
 
-    // Плавное исчезновение about_content и смещение section-about вверх
-    // во время наезда следующей секции; смена фона на var(--bg), когда
-    // секция дошла до верхнего края
-    var aboutSection = document.querySelector('.section-about');
+    // Плавное исчезновение about_content во время наезда следующей секции;
+    // смена фона на var(--bg), когда секция дошла до верхнего края
     var aboutContent = document.querySelector('.about_content');
-
-    if (aboutSection) {
-      gsap.fromTo(aboutSection,
-        { y: 0 },
-        {
-          y: '-25vh',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'top top',
-            scrub: true
-          }
-        }
-      );
-    }
 
     if (aboutContent) {
       gsap.fromTo(aboutContent,
@@ -1534,7 +1516,7 @@
 </script>
 
 <script>
-  // Параллакс: секция смещается вверх на 25vh, пока следующая секция наезжает на неё
+  // Контент секций плавно уходит в opacity: 0, пока наезжает следующая секция
   (function () {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
@@ -1551,32 +1533,6 @@
 
     window.addEventListener('load', function () {
       ScrollTrigger.refresh();
-    });
-
-    var pairs = [
-      ['.section-mask-scroll', '.section-big-print'],
-      ['.section-big-print', '.section-choose'],
-      ['.section-control', '.footer']
-    ];
-
-    pairs.forEach(function (pair) {
-      var current = document.querySelector(pair[0]);
-      var next = document.querySelector(pair[1]);
-      if (!current || !next) return;
-
-      gsap.fromTo(current,
-        { y: 0 },
-        {
-          y: '-25vh',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: next,
-            start: 'top bottom',
-            end: 'top top',
-            scrub: true
-          }
-        }
-      );
     });
 
     // Контент control/big-print плавно уходит в opacity: 0, пока наезжает следующая секция
