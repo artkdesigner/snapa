@@ -1252,6 +1252,66 @@
   window.addEventListener('scroll', updateShrink, { passive: true });
   window.addEventListener('resize', updateShrink);
   updateShrink();
+
+  // Нативное 'scroll' может десинхронизироваться с RAF-тиком Lenis (Lenis
+  // диспатчит свой 'scroll' синхронно на каждый тик, а браузерное native
+  // 'scroll' — на своё усмотрение, иногда с задержкой на кадр) — это
+  // приводило к рывку/миганию открытки ровно на стыке 4-го слайда choose и
+  // старта shrink, так как остальные эффекты на странице синхронизированы
+  // именно с Lenis. Подписываемся на lenis.on('scroll', ...) тоже.
+  (function bindLenisForShrink() {
+    if (!window.lenis) {
+      requestAnimationFrame(bindLenisForShrink);
+      return;
+    }
+    window.lenis.on('scroll', updateShrink);
+  })();
+</script>
+
+<script>
+  // presets_title раньше не имел скрытого стартового состояния. Секция
+  // section-choose намеренно прозрачна вокруг сжимающейся открытки, чтобы
+  // section-presets просвечивал в углах мелкими подписями (см. коммит
+  // db20a85) — но это же окно давало просвечивать и ОГРОМНОМУ центральному
+  // presets_title прямо поверх ещё формирующейся открытки, что выглядело
+  // как мусор/мигание на стыке 4-го слайда choose и перехода в открытку.
+  // Прячем его до момента, когда открытка полностью сформировалась
+  // (тот же shrinkMarker, что двигает прогресс сжатия), и плавно проявляем.
+  (function () {
+    var title = document.querySelector('.presets_title');
+    var shrinkMarker = document.querySelector('.choose_shrink-marker');
+    if (!title || !shrinkMarker || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    function bindLenis() {
+      if (!window.lenis) {
+        requestAnimationFrame(bindLenis);
+        return;
+      }
+      window.lenis.on('scroll', ScrollTrigger.update);
+      ScrollTrigger.refresh();
+    }
+    bindLenis();
+
+    window.addEventListener('load', function () {
+      ScrollTrigger.refresh();
+    });
+
+    gsap.fromTo(title,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: shrinkMarker,
+          start: 'top top',
+          end: 'top 70%',
+          scrub: true
+        }
+      }
+    );
+  })();
 </script>
 
 <script>
