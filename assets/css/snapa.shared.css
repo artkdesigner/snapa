@@ -4032,6 +4032,10 @@ figcaption {
   opacity: 0;
 }
 
+.big-print_title-lead {
+  display: none;
+}
+
 .hero_bg {
   z-index: 0;
   background-image: url("../images/6a69b30fcc24456128ed15b7_-D-hero.webp");
@@ -4130,6 +4134,8 @@ figcaption {
     letter-spacing: -.42rem;
     margin-bottom: 3.75rem;
     font-size: 5.25rem;
+  }.big-print_title-lead {
+    display: inline;
   }.big-print_size {
     justify-content: flex-start;
     align-items: center;
