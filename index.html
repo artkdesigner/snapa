@@ -1073,7 +1073,7 @@
     var isTabletOrMobile = window.matchMedia('(max-width: 991px)').matches;
     if (imgWrap && isTabletOrMobile) {
       gsap.set(imgWrap, { opacity: 0, yPercent: 30 });
-      tl.to(imgWrap, { opacity: 1, yPercent: 0, duration: .8, ease: 'power3.out' });
+      tl.to(imgWrap, { opacity: 1, yPercent: 0, duration: 1.6, ease: 'power3.out' });
     }
   }
 
