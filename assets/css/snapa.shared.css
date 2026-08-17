@@ -2804,7 +2804,7 @@ figcaption {
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
   grid-auto-columns: 1fr;
-  height: 300vh;
+  height: 400vh;
   margin-top: -100vh;
   position: relative;
 }
