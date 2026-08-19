@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://artkdesigner.github.io/snapa/sitemap.xml
+Sitemap: https://snapa.uprock.pro/sitemap.xml
