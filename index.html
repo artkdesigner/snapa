@@ -906,12 +906,22 @@
     if (!markers.length || !screens.length) return;
   
     function begin() {
-      var revealed = [];
-  
+      // Таймлайн появления строк шага. fromTo — чтобы reverse() зеркально
+      // уводил строки обратно в маску при скролле вверх.
+      function buildTl(entry) {
+        if (entry.tl) entry.tl.kill();
+        var tl = gsap.timeline({ paused: true });
+        tl.fromTo(entry.titleLines, { yPercent: 100 }, { yPercent: 0, duration: 1.05, ease: 'power3.out', stagger: .12 }, 0);
+        tl.fromTo(entry.subLines, { yPercent: 100 }, { yPercent: 0, duration: .75, ease: 'power3.out', stagger: .09 }, '-=0.45');
+        // После пересплита (resize) сохраняем текущее состояние шага
+        tl.progress(entry.shown ? 1 : 0);
+        entry.tl = tl;
+      }
+
       var entries = screens.map(function (screen) {
         var title = screen.querySelector('.scroll-mask_title');
         var sub = screen.querySelector('.scroll-mask_sub');
-        var entry = { titleLines: [], subLines: [] };
+        var entry = { titleLines: [], subLines: [], tl: null, shown: false };
   
         if (title) {
           SplitText.create(title, {
@@ -921,7 +931,7 @@
             autoSplit: true,
             onSplit: function (self) {
               entry.titleLines = self.lines;
-              gsap.set(entry.titleLines, { yPercent: 100 });
+              buildTl(entry);
             }
           });
         }
@@ -934,7 +944,7 @@
             autoSplit: true,
             onSplit: function (self) {
               entry.subLines = self.lines;
-              gsap.set(entry.subLines, { yPercent: 100 });
+              buildTl(entry);
             }
           });
         }
@@ -942,20 +952,31 @@
         return entry;
       });
   
-      function revealStep(step) {
-        if (step < 0 || revealed[step] || !entries[step]) return;
-        revealed[step] = true;
-  
+      function showStep(step) {
         var entry = entries[step];
-        var tl = gsap.timeline();
-        tl.to(entry.titleLines, { yPercent: 0, duration: 1.05, ease: 'power3.out', stagger: .12 }, 0);
-        tl.to(entry.subLines, { yPercent: 0, duration: .75, ease: 'power3.out', stagger: .09 }, '-=0.45');
+        if (!entry || entry.shown) return;
+        entry.shown = true;
+        if (entry.tl) entry.tl.play();
+      }
+
+      function hideStep(step) {
+        var entry = entries[step];
+        if (!entry || !entry.shown) return;
+        entry.shown = false;
+        if (entry.tl) entry.tl.reverse();
       }
   
+      // Маркер шага стал видим ≥50% — показываем текст шага.
+      // Маркер ушёл вниз за экран (листают вверх) — откатываем текст этого шага,
+      // синхронно со сворачиванием его экрана. Ушёл вверх (листают вниз) —
+      // текст остаётся под следующим экраном.
       var observer = new IntersectionObserver(function (observerEntries) {
         observerEntries.forEach(function (observerEntry) {
+          var step = markers.indexOf(observerEntry.target);
           if (observerEntry.isIntersecting) {
-            revealStep(markers.indexOf(observerEntry.target));
+            showStep(step);
+          } else if (observerEntry.boundingClientRect.top > 0) {
+            hideStep(step);
           }
         });
       }, { threshold: .5 });
