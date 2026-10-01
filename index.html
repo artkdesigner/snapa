@@ -1124,6 +1124,74 @@
 </script>
 
 <script>
+  // Предекод фоновых картинок экранов Choose и Mask-scroll.
+  // Скрытые экраны (.is-next) свёрнуты clip-path до нуля, поэтому браузер
+  // их фон скачивает, но ни разу не рисует и не декодирует. Декод большой
+  // webp запускается только при первом раскрытии маски — пока он идёт,
+  // Chrome рисует кадр без картинки, и экран «моргает» (только в первый раз,
+  // потом декод уже в кэше). Декодируем заранее через Image.decode().
+  (function () {
+    var groups = [
+      { section: '.section-mask-scroll', screens: '.mask-scroll_screen' },
+      { section: '.section-choose', screens: '.choose_screen' }
+    ];
+    var keep = {}; // держим ссылки, чтобы картинки не собрал GC
+
+    function bgUrl(el) {
+      var m = /url\(["']?([^"')]+)["']?\)/.exec(getComputedStyle(el).backgroundImage);
+      return m ? m[1] : null;
+    }
+
+    function predecode(group) {
+      document.querySelectorAll(group.screens).forEach(function (el) {
+        var url = bgUrl(el);
+        if (!url) return;
+        var img = keep[url];
+        if (!img) {
+          img = keep[url] = new Image();
+          img.src = url;
+        }
+        if (img.decode) img.decode().catch(function () {});
+      });
+    }
+
+    function predecodeAll() {
+      groups.forEach(predecode);
+    }
+
+    // 1) В простое после загрузки страницы — не конкурируем с первым экраном.
+    window.addEventListener('load', function () {
+      (window.requestIdleCallback || setTimeout)(predecodeAll);
+    });
+
+    // 2) Повторно при подлёте к секции — на случай, если декод успели
+    //    выкинуть из кэша, пока листали другие тяжёлые секции.
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          groups.forEach(function (g) {
+            if (entry.target.matches(g.section)) predecode(g);
+          });
+        });
+      }, { rootMargin: '200% 0px' });
+      groups.forEach(function (g) {
+        var s = document.querySelector(g.section);
+        if (s) io.observe(s);
+      });
+    }
+
+    // 3) На смене брейкпоинта фоны меняются (-t/-m варианты) — декодируем новые.
+    ['(max-width: 991px)', '(max-width: 767px)'].forEach(function (q) {
+      var mq = window.matchMedia(q);
+      var onChange = function () { predecodeAll(); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    });
+  })();
+</script>
+
+<script>
   // Появление choose_title при входе в секцию
   (function () {
     var section = document.querySelector('.section-choose');
