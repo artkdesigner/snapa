@@ -95,9 +95,11 @@
     clip-path: polygon(100% 100%, 100% 100%, 100% 100%); /* свёрнут в угол */
   }
   
-  /* Настройки для секции Choose */
+  /* Настройки для секции Choose.
+     Без CSS transition: анимацию clip-path ведёт GSAP из скрипта секции
+     (CSS-переход clip-path Chrome выносит на композитор и при скролле
+     через кадр рисует маску раскрытой — экран «моргает»). */
   .choose_screen {
-    transition: clip-path .8s ease;
     clip-path: circle(150% at 100% 50%); /* открыт */
   }
   .choose_screen.is-next {
@@ -1093,8 +1095,47 @@
   const chooseNum = document.querySelector('.choose_num');
   const chooseNames = document.querySelectorAll('.choose_name');
 
+  // Маска экрана анимируется через GSAP inline-стилем, а не CSS transition:
+  // CSS-переход clip-path в Chrome уходит на композитор, и при одновременном
+  // скролле часть кадров рисуется со статичным (раскрытым) clip-path —
+  // экран моргает при каждом переключении вперёд/назад.
+  const chooseTabletMq = window.matchMedia('(max-width: 992px)');
+  function chooseClip(open) {
+    const at = chooseTabletMq.matches ? '50% 100%' : '100% 50%';
+    return `circle(${open ? 150 : 0}% at ${at})`;
+  }
+  // Кривая CSS `ease` = cubic-bezier(.25, .1, .25, 1), чтобы движение не изменилось
+  function cssEase(t) {
+    let lo = 0, hi = 1, u = t;
+    for (let i = 0; i < 20; i++) {
+      u = (lo + hi) / 2;
+      const x = 3 * u * (1 - u) * (1 - u) * .25 + 3 * u * u * (1 - u) * .25 + u * u * u;
+      if (x < t) lo = u; else hi = u;
+    }
+    return 3 * u * (1 - u) * (1 - u) * .1 + 3 * u * u * (1 - u) + u * u * u;
+  }
+  let chooseCurrentStep = null;
+
+  function setChooseScreens(step, animate) {
+    chooseScreens.forEach((el, i) => {
+      const clip = chooseClip(i <= step);
+      if (animate && typeof gsap !== 'undefined') {
+        gsap.to(el, { clipPath: clip, duration: .8, ease: cssEase, overwrite: true });
+      } else {
+        if (typeof gsap !== 'undefined') gsap.killTweensOf(el);
+        el.style.clipPath = clip;
+      }
+    });
+  }
+
+  if (chooseTabletMq.addEventListener) {
+    chooseTabletMq.addEventListener('change', () => setChooseScreens(chooseCurrentStep || 0, false));
+  }
+
   function setChooseStep(step) {
     chooseScreens.forEach((el, i) => el.classList.toggle('is-next', i > step));
+    if (step !== chooseCurrentStep) setChooseScreens(step, chooseCurrentStep !== null);
+    chooseCurrentStep = step;
 
     chooseNames.forEach((el, i) => {
       el.classList.remove('is-prev', 'is-next');
